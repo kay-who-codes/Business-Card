@@ -94,14 +94,14 @@
   // ---------- vCard download ----------
   var CONTACT = {
     firstName: 'Kay',
-    lastName: 'Who Creates',
-    fullName: 'Kay Who Creates',
-    title: 'Creator of things.',
+    lastName: '',
+    fullName: '',
+    title: 'Producer',
     email: 'kaywhocreates@gmail.com',
     phone: '07123 456 789',
-    url: 'https://github.com/kay-who-codes',
+    url: 'https://linktr.ee/kaywhocreates',
     city: 'Hamilton, Glasgow',
-    country: ''
+    country: 'United Kingdom'
   };
 
   function buildVCard(c){
