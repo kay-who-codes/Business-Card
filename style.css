@@ -1,13 +1,13 @@
 :root{
-  --bg: #131313;
-  --card: #1a1a1a;
-  --accent: #f5522a;
-  --accent-2: #8eff6c;
-  --good: #dddf6a;
-  --line: #2c2c2c;
-  --line-hover: #46433c;
-  --text: #f2f2f0;
-  --muted: #8a8a86;
+  --bg: #16110c;
+  --card: #1c1611;
+  --accent: #ff5e1a;
+  --accent-2: #1b2a4a;
+  --good: #d9c6a3;
+  --line: #33291d;
+  --line-hover: #4a3a26;
+  --text: #e8d9bd;
+  --muted: #9c8a6c;
 }
 
 *{ box-sizing: border-box; }
@@ -16,8 +16,8 @@ html, body{ height: 100%; margin: 0; }
 body{
   background: var(--bg);
   background-image:
-    radial-gradient(circle at 20% 15%, rgba(255,162,56,0.05), transparent 40%),
-    radial-gradient(circle at 80% 85%, rgba(107,171,255,0.05), transparent 40%);
+    radial-gradient(circle at 20% 15%, rgba(255,94,26,0.12), transparent 40%),
+    radial-gradient(circle at 80% 85%, rgba(255,126,58,0.08), transparent 40%);
   color: var(--text);
   font-family: 'DM Mono', monospace;
   display: flex;
@@ -79,7 +79,7 @@ body{
 .scene:hover .face,
 .scene:focus-visible .face{
   border-color: var(--line-hover);
-  box-shadow: 0 34px 70px -18px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,162,56,0.12), 0 0 32px -6px rgba(255,162,56,0.18);
+  box-shadow: 0 34px 70px -18px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,94,26,0.15), 0 0 32px -6px rgba(255,94,26,0.22);
 }
 
 .face::before{
@@ -103,14 +103,14 @@ body{
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), #ff7a38);
+  background: linear-gradient(135deg, var(--accent), #ff8a4a);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 17px;
-  color: #131313;
+  color: #16110c;
   flex-shrink: 0;
 }
 
@@ -129,12 +129,13 @@ body{
   font-size: 25px;
   line-height: 1.1;
   letter-spacing: -0.01em;
+  color: var(--text);
 }
 
 .role{
   margin-top: 5px;
   font-size: 11.5px;
-  color: var(--accent-2);
+  color: var(--accent);
   letter-spacing: 0.02em;
 }
 
@@ -152,16 +153,16 @@ body{
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--good);
+  background: var(--accent);
   flex-shrink: 0;
-  box-shadow: 0 0 0 0 rgba(106,223,156,0.6);
+  box-shadow: 0 0 0 0 rgba(255,94,26,0.6);
   animation: pulse 2.2s infinite;
 }
 
 @keyframes pulse{
-  0%{ box-shadow: 0 0 0 0 rgba(106,223,156,0.45); }
-  70%{ box-shadow: 0 0 0 6px rgba(106,223,156,0); }
-  100%{ box-shadow: 0 0 0 0 rgba(106,223,156,0); }
+  0%{ box-shadow: 0 0 0 0 rgba(255,94,26,0.45); }
+  70%{ box-shadow: 0 0 0 6px rgba(255,94,26,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(255,94,26,0); }
 }
 
 .status-strip strong{ color: var(--text); font-weight: 500; }
@@ -236,7 +237,7 @@ body{
   width: 24px;
   height: 24px;
   border-radius: 7px;
-  background: #131313;
+  background: var(--accent-2);
   border: 1px solid var(--line);
   display: flex;
   align-items: center;
@@ -247,7 +248,7 @@ body{
 .contact-item .icon svg{
   width: 12px;
   height: 12px;
-  stroke: var(--accent-2);
+  stroke: var(--text);
 }
 
 .contact-item a, .contact-item span.val{
@@ -258,7 +259,7 @@ body{
   white-space: nowrap;
 }
 
-.contact-item a:hover{ color: var(--accent-2); }
+.contact-item a:hover{ color: var(--accent); }
 
 .contact-item .copy-btn{
   margin-left: auto;
@@ -278,8 +279,8 @@ body{
 }
 
 .contact-item .copy-btn:hover{
-  border-color: var(--accent-2);
-  color: var(--accent-2);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .contact-item .copy-btn.copied{
@@ -326,7 +327,7 @@ body{
   align-items: center;
   gap: 6px;
   background: var(--accent);
-  color: #131313;
+  color: #16110c;
   border: none;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
@@ -342,14 +343,14 @@ body{
 .save-contact svg{ width: 12px; height: 12px; }
 
 .save-contact:hover{
-  background: #ffb15c;
-  box-shadow: 0 6px 16px -6px rgba(255,162,56,0.5);
+  background: #ff8a4a;
+  box-shadow: 0 6px 16px -6px rgba(255,94,26,0.5);
   transform: translateY(-1px);
 }
 
 .save-contact:active{ transform: translateY(0); }
 
-.save-contact.saved{ background: var(--good); }
+.save-contact.saved{ background: var(--accent-2); color: var(--text); }
 
 .back .bottom-row{
   display: flex;
