@@ -1,39 +1,451 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>🥕 Kay Contact Card</title>
 
 <!-- Open Graph -->
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Kay WhoCreates — Product & Front-End Engineer">
+<meta property="og:title" content="Kay WhoCreates — Product &amp; Front-End Engineer">
 <meta property="og:description" content="Digital business card for Kay WhoCreates. Tap to flip for contact details, or scan the QR code to visit kayrivera.dev.">
-<!-- NOTE: og:image below is a data URI for portability.
+<!-- NOTE: og:image below is a data URI for portability in this single file.
      Most social platforms (Slack, iMessage, X, LinkedIn) will NOT fetch data:
      URIs for previews — replace with a hosted https:// image path once this
-     site is deployed to get a real link-preview thumbnail. -->
+     file is deployed to get a real link-preview thumbnail. -->
 <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Crect width='512' height='512' fill='%23131313'/%3E%3Crect x='156' y='156' width='200' height='200' rx='40' fill='%23ffa238'/%3E%3Ctext x='256' y='288' font-family='Georgia,serif' font-size='120' font-weight='700' fill='%23131313' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <meta name="theme-color" content="#131313">
 
-<!-- Favicon (inline SVG monogram) -->
+<!-- Favicon (inline SVG monogram, no external file needed) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23131313'/%3E%3Crect x='10' y='10' width='44' height='44' rx='10' fill='%23ffa238'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23131313' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23131313'/%3E%3Crect x='10' y='10' width='44' height='44' rx='10' fill='%23ffa238'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23131313' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 
-<!-- PWA manifest, embedded as a data URI so no extra file is required -->
+<!-- PWA manifest, embedded as a data URI so the file stays self-contained.
+     Lets the card be "Added to Home Screen" as a standalone app. -->
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Kay%20WhoCreates%20%E2%80%94%20Business%20Card%22%2C%22short_name%22%3A%22Kay%20WhoCreates%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23131313%22%2C%22theme_color%22%3A%22%23131313%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%252064%252064%2527%253E%253Crect%2520width%253D%252764%2527%2520height%253D%252764%2527%2520rx%253D%252714%2527%2520fill%253D%2527%2523131313%2527%252F%253E%253Crect%2520x%253D%252710%2527%2520y%253D%252710%2527%2520width%253D%252744%2527%2520height%253D%252744%2527%2520rx%253D%252710%2527%2520fill%253D%2527%2523ffa238%2527%252F%253E%253Ctext%2520x%253D%252732%2527%2520y%253D%252745%2527%2520font-family%253D%2527Georgia%252Cserif%2527%2520font-size%253D%252730%2527%2520font-weight%253D%2527700%2527%2520fill%253D%2527%2523131313%2527%2520text-anchor%253D%2527middle%2527%253EA%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%2264x64%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Kay WhoCreates">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #131313;
+    --card: #1a1a1a;
+    --accent: #ffa238;
+    --accent-2: #6babff;
+    --good: #6adf9c;
+    --line: #2c2c2c;
+    --line-hover: #46433c;
+    --text: #f2f2f0;
+    --muted: #8a8a86;
+  }
 
-<!-- Extracted stylesheet -->
-<link rel="stylesheet" href="style.css">
+  *{ box-sizing: border-box; }
+  html, body{ height: 100%; margin: 0; }
+
+  body{
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(255,162,56,0.05), transparent 40%),
+      radial-gradient(circle at 80% 85%, rgba(107,171,255,0.05), transparent 40%);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .stage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .scene{
+    width: min(430px, 92vw);
+    height: min(322px, 69vw);
+    perspective: 1600px;
+    outline: none;
+  }
+
+  .tilt{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(.22,.85,.32,1);
+    will-change: transform;
+  }
+
+  .card{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(.22,.85,.32,1.15);
+  }
+
+  .scene.flipped .card{ transform: rotateY(180deg); }
+
+  .face{
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+    overflow: hidden;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .scene:hover .face,
+  .scene:focus-visible .face{
+    border-color: var(--line-hover);
+    box-shadow: 0 34px 70px -18px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,162,56,0.12), 0 0 32px -6px rgba(255,162,56,0.18);
+  }
+
+  .face::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+
+  /* ---------- FRONT ---------- */
+  .front{ z-index: 2; }
+
+  .front .top-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .mark{
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #ff7a38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: #131313;
+    flex-shrink: 0;
+  }
+
+  .eyebrow{
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .name-block{ margin-top: 2px; }
+
+  .name{
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .role{
+    margin-top: 5px;
+    font-size: 11.5px;
+    color: var(--accent-2);
+    letter-spacing: 0.02em;
+  }
+
+  /* status / social-proof strip */
+  .status-strip{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 10.5px;
+    color: var(--muted);
+  }
+
+  .status-dot{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--good);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(106,223,156,0.6);
+    animation: pulse 2.2s infinite;
+  }
+
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(106,223,156,0.45); }
+    70%{ box-shadow: 0 0 0 6px rgba(106,223,156,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(106,223,156,0); }
+  }
+
+  .status-strip strong{ color: var(--text); font-weight: 500; }
+
+  .front .bottom-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .tagline{
+    font-size: 10.5px;
+    color: var(--muted);
+    max-width: 62%;
+    line-height: 1.5;
+  }
+
+  .flip-hint{
+    cursor: pointer;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+
+  .scene:hover .flip-hint{
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .flip-hint svg{ width: 11px; height: 11px; }
+
+  /* ---------- BACK ---------- */
+  .back{
+    transform: rotateY(180deg);
+    z-index: 1;
+  }
+
+  .back .heading{
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+  }
+
+  .contact-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .contact-item{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .contact-item .icon{
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: #131313;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-item .icon svg{
+    width: 12px;
+    height: 12px;
+    stroke: var(--accent-2);
+  }
+
+  .contact-item a, .contact-item span.val{
+    color: inherit;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .contact-item a:hover{ color: var(--accent-2); }
+
+  .contact-item .copy-btn{
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    padding: 0;
+  }
+
+  .contact-item .copy-btn:hover{
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+  }
+
+  .contact-item .copy-btn.copied{
+    border-color: var(--good);
+    color: var(--good);
+  }
+
+  .contact-item .copy-btn svg{
+    width: 11px;
+    height: 11px;
+  }
+
+  .back-mid{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 10px;
+  }
+
+  .qr-wrap{
+    width: 62px;
+    height: 62px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 5px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qr-wrap svg{ width: 100%; height: 100%; display: block; }
+
+  .qr-caption{
+    font-size: 9px;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 120px;
+  }
+
+  .save-contact{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #131313;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .save-contact svg{ width: 12px; height: 12px; }
+
+  .save-contact:hover{
+    background: #ffb15c;
+    box-shadow: 0 6px 16px -6px rgba(255,162,56,0.5);
+    transform: translateY(-1px);
+  }
+
+  .save-contact:active{ transform: translateY(0); }
+
+  .save-contact.saved{ background: var(--good); }
+
+  .back .bottom-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .back .eyebrow{ font-size: 10px; }
+
+  .qr-hint{
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .instructions{
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    text-align: center;
+  }
+
+  .instructions kbd{
+    font-family: 'DM Mono', monospace;
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  .toast{
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 11.5px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 10;
+  }
+
+  .toast.show{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card, .tilt{ transition: none; }
+    .status-dot{ animation: none; }
+  }
+</style>
 </head>
-<body>
+<body><div id="kwc-repo-search" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(420px,92vw);z-index:9999;"></div>
 
 <div class="stage">
   <div class="scene" id="scene" tabindex="0" role="button" aria-pressed="false" aria-label="Business card, press to flip">
@@ -43,22 +455,22 @@
         <div class="face front">
           <div class="top-row">
             <div class="mark">K</div>
-            <div class="eyebrow">Open to collab</div>
+            <div class="eyebrow">Available for work</div>
           </div>
 
           <div class="name-block">
-            <div class="name">Kay</div>
-            <div class="role">Producer & Legend</div>
+            <div class="name">Kay Who Creates</div>
+            <div class="role">Product &amp; Front-End Engineer</div>
             <div class="status-strip">
               <span class="status-dot" aria-hidden="true"></span>
-              <span>Current focus: <strong>Minimalism & Automation</strong></span>
+              <span>Currently building: <strong>Business Card Generator</strong></span>
             </div>
           </div>
 
           <div class="bottom-row">
-            <div class="tagline">I do things differently, or by the book - whatever works best.</div>
+            <div class="tagline">Building interfaces that feel considered, not templated.</div>
             <div class="flip-hint">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
               Flip
             </div>
           </div>
@@ -66,46 +478,46 @@
 
         <div class="face back">
           <div>
-            <div class="heading">Kay details</div>
+            <div class="heading">Get in touch</div>
             <div class="contact-list">
 
               <div class="contact-item">
                 <span class="icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6l-10 7L2 6"/><path d="M2 6h20v12H2z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6l-10 7L2 6"></path><path d="M2 6h20v12H2z"></path></svg>
                 </span>
                 <a href="mailto:kaywhocreates@gmail.com" class="val">kaywhocreates@gmail.com</a>
                 <button class="copy-btn" type="button" data-copy="kaywhocreates@gmail.com" aria-label="Copy email">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </button>
               </div>
 
               <div class="contact-item">
                 <span class="icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"></path></svg>
                 </span>
                 <a href="tel:+44 7123 456 789" class="val">+44 7123 456 789</a>
                 <button class="copy-btn" type="button" data-copy="+447123456789" aria-label="Copy phone number">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </button>
               </div>
 
               <div class="contact-item">
                 <span class="icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 </span>
-                <a href="https://linktr.ee/kaywhocreates/" target="_blank" rel="noopener" class="val">linktr.ee/kaywhocreates</a>
-                <button class="copy-btn" type="button" data-copy="https://linktr.ee/kaywhocreates/" aria-label="Copy website URL">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <a href="https://github.com/kay-who-codes/" target="_blank" rel="noopener" class="val">github.com/kay-who-codes</a>
+                <button class="copy-btn" type="button" data-copy="https://github.com/kay-who-codes/" aria-label="Copy website URL">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </button>
               </div>
 
               <div class="contact-item">
                 <span class="icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 </span>
                 <span class="val">Hamilton, Glasgow</span>
                 <button class="copy-btn" type="button" data-copy="Hamilton, Glasgow" aria-label="Copy location">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </button>
               </div>
 
@@ -114,9 +526,9 @@
 
           <div class="back-mid">
             <div class="qr-wrap" id="qrWrap" aria-hidden="true"></div>
-            <div class="qr-caption">Scan to visit<br>linktr.ee/kaywhocreates</div>
+            <div class="qr-caption">Scan to visit<br>github.com/kay-who-codes</div>
             <button class="save-contact" id="saveContact" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
               Save contact
             </button>
           </div>
@@ -136,9 +548,175 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Third-party QR generator (MIT licensed, Kazuhiko Arase) -->
-<script src="qrcode.js"></script>
-<!-- Card interaction logic -->
-<script src="app.js"></script>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/gh/kay-who-codes/Kay-App-Assets@main/Headers/Header.js"></script><script src="https://cdn.jsdelivr.net/gh/kay-who-codes/JS-QR-Coder@main/qrcode.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+  (function(){
+
+  // ---------- Flip + tilt ----------
+  var scene = document.getElementById('scene');
+  var tilt = document.getElementById('tilt');
+  var card = document.getElementById('card');
+
+  function toggleFlip(){
+    var flipped = scene.classList.toggle('flipped');
+    scene.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+  }
+
+  scene.addEventListener('click', function(e){
+    // Don't flip when interacting with buttons/links on the card
+    if (e.target.closest('button, a')) return;
+    toggleFlip();
+  });
+
+  scene.addEventListener('keydown', function(e){
+    if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button, a')){
+      e.preventDefault();
+      toggleFlip();
+    }
+  });
+
+  var hasFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (hasFinePointer && !reduceMotion){
+    var maxTilt = 9;   // degrees
+    var lift = 18;     // px translateZ on hover
+
+    scene.addEventListener('mousemove', function(e){
+      var rect = scene.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width;   // 0..1
+      var py = (e.clientY - rect.top) / rect.height;    // 0..1
+      var rotY = (px - 0.5) * 2 * maxTilt;
+      var rotX = (0.5 - py) * 2 * maxTilt;
+      tilt.style.transition = 'transform 0.08s linear';
+      tilt.style.transform = 'rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg) translateZ(' + lift + 'px)';
+    });
+
+    scene.addEventListener('mouseleave', function(){
+      tilt.style.transition = 'transform 0.5s cubic-bezier(.22,.85,.32,1)';
+      tilt.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    });
+  }
+
+  // ---------- Toast ----------
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 1800);
+  }
+
+  // ---------- Copy to clipboard ----------
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var value = btn.getAttribute('data-copy');
+      var done = function(){
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        showToast('Copied "' + value + '"');
+        setTimeout(function(){
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+        }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(value).then(done).catch(function(){
+          fallbackCopy(value); done();
+        });
+      } else {
+        fallbackCopy(value); done();
+      }
+    });
+  });
+
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(err) {}
+    document.body.removeChild(ta);
+  }
+
+  // ---------- vCard download ----------
+  var CONTACT = {
+    firstName: 'Kay',
+    lastName: 'Who Creates',
+    fullName: 'Kay Who Creates',
+    title: 'Creator of things.',
+    email: 'kaywhocreates@gmail.com',
+    phone: '07123 456 789',
+    url: 'https://github.com/kay-who-codes',
+    city: 'Hamilton, Glasgow',
+    country: ''
+  };
+
+  function buildVCard(c){
+    return [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:' + c.lastName + ';' + c.firstName + ';;;',
+      'FN:' + c.fullName,
+      'TITLE:' + c.title,
+      'TEL;TYPE=CELL:' + c.phone,
+      'EMAIL:' + c.email,
+      'URL:' + c.url,
+      'ADR;TYPE=WORK:;;;' + c.city + ';;;' + c.country,
+      'END:VCARD',
+      ''
+    ].join('\r\n');
+  }
+
+  var saveBtn = document.getElementById('saveContact');
+  saveBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var vcf = buildVCard(CONTACT);
+    var blob = new Blob([vcf], { type: 'text/vcard;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = CONTACT.fullName.toLowerCase().replace(/\s+/g, '-') + '.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+
+    saveBtn.classList.add('saved');
+    var original = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Saved';
+    showToast('Contact card downloaded');
+    setTimeout(function(){
+      saveBtn.classList.remove('saved');
+      saveBtn.innerHTML = original;
+    }, 1800);
+  });
+
+  // ---------- QR code (client-side, no external image/service) ----------
+  (function renderQR(){
+    var wrap = document.getElementById('qrWrap');
+    if (typeof qrcode !== 'function' || !wrap) return;
+    try{
+      var qr = qrcode(0, 'M'); // typeNumber 0 = auto-detect smallest size
+      qr.addData(CONTACT.url);
+      qr.make();
+      var svg = qr.createSvgTag({ cellSize: 4, margin: 4, scalable: true });
+      // Recolor to match the card's palette (white module bg, ink-dark modules)
+      svg = svg.replace('fill="white"', 'fill="#ffffff"').replace('fill="black"', 'fill="#131313"');
+      wrap.innerHTML = svg;
+    } catch(err){
+      wrap.style.display = 'none';
+    }
+  })();
+
+  })();
+});
+</script>
+
+</body></html>
